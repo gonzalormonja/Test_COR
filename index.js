@@ -4,7 +4,7 @@ const KEYS = ['chair', 'height', 'racket', 'touch', 'tunic'];
 
 let first_key = null;
 
-const get_next_key = (keys_used) => {
+const test_key = (keys_used) => {
     const last_key = keys_used[keys_used.length - 1];
     let keys_not_used = KEYS.filter(key => !keys_used.includes(key));
 
@@ -16,17 +16,17 @@ const get_next_key = (keys_used) => {
         if (possible_next_keys.length <= 0) return { ok: false, keys: [] };
 
         for (const possible_next_key of possible_next_keys) {
-            return get_next_key([...keys_used, possible_next_key]);
+            return test_key([...keys_used, possible_next_key]);
         }
     }
 }
 
 
-const test = () => {
+const test_COR = () => {
     return new Promise((resolve, reject) => {
         KEYS.map(key => {
             first_key = key;
-            const resp = get_next_key([key]);
+            const resp = test_key([key]);
             if (resp.ok) {
                 resolve(resp.keys)
             }
@@ -35,7 +35,7 @@ const test = () => {
     })
 }
 
-test()
+test_COR()
     .then((keys) => {
         const content_file = keys.reduce((acc, el) => `${acc}${el}\n`, '');
         fs.writeFile('output.txt', content_file, (err) => {

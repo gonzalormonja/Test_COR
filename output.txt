@@ -1,6 +1,5 @@
 chair
 racket
-tut
 touch
 height
 tunic

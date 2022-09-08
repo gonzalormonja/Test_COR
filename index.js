@@ -2,13 +2,12 @@ const fs = require('fs')
 
 const KEYS = ['chair', 'height', 'racket', 'touch', 'tunic'];
 
-let first_key = null;
-
 const test_key = (keys_used) => {
     const last_key = keys_used[keys_used.length - 1];
     let keys_not_used = KEYS.filter(key => !keys_used.includes(key));
 
     if (keys_not_used.length <= 0) {
+        const first_key = keys_used[0];
         return { ok: last_key.charAt(last_key.length - 1) == first_key[0], keys: keys_used };
     } else {
         const possible_next_keys = keys_not_used.filter(key => last_key.charAt(last_key.length - 1) == key.charAt(0));
@@ -25,7 +24,6 @@ const test_key = (keys_used) => {
 const test_COR = () => {
     return new Promise((resolve, reject) => {
         KEYS.map(key => {
-            first_key = key;
             const resp = test_key([key]);
             if (resp.ok) {
                 resolve(resp.keys)
